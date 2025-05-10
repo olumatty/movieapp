@@ -4,19 +4,17 @@ import { getMovies } from "@/services/api";
 import useFetch from "@/services/usefetch";
 import { useRouter } from "expo-router";
 import { ActivityIndicator, FlatList, Image, ScrollView, Text, View } from "react-native";
+import MovieCard from "../components/MovieCard";
 import SearchBar from "../components/SearchBar";
 
 export default function Index() {
   const router = useRouter();
 
   const {
-     
     data: movies,
-     
     loading: moviesLoading,
-     
     error: moviesError,
-  } = useFetch(() => getMovies({ query:'' }));
+  } = useFetch(() => getMovies({ query: '' }));
 
   return (
     <View className="flex-1 bg-primary">
@@ -41,9 +39,9 @@ export default function Index() {
               <FlatList
                 data={movies}
                 renderItem={({ item }) =>
-                   <Text className="text-white text-sm">{item.title}</Text>}
+                <MovieCard {...item} />}
                 keyExtractor={(item) => item.id.toString()}
-                numColumns={4}
+                numColumns={3}
                 columnWrapperStyle={{
                   justifyContent:"flex-start",
                   gap: 20,
