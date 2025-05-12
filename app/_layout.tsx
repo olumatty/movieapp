@@ -1,12 +1,18 @@
 import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import './global.css';
 
 export default function RootLayout() {
   return(
-     /* remove the header shown at the top of the screeen */  
+    <>
+    <StatusBar hidden={true} />
+  
     <Stack>
       <Stack.Screen name= "(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name= "movies/[id]" options={{ headerShown: false }} />
     </Stack>
+    
+    </>
+     
   );
 }

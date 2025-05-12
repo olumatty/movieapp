@@ -7,12 +7,12 @@ import { useRouter } from "expo-router";
 import { ActivityIndicator, FlatList, Image, ScrollView, Text, View } from "react-native";
 import MovieCard from "../components/MovieCard";
 import SearchBar from "../components/SearchBar";
+import TrendingCard from "../components/TrendingCard";
 
 export default function Index() {
   const router = useRouter();
 
   const {
-     
     data: trendingMovies,
     loading: trendingLoading,
     error: trendingError,
@@ -46,15 +46,16 @@ export default function Index() {
                 <View className="flex-1 mt-5">
                   <Text className="text-lg text-white font-bold mb-3">Trending Movies</Text>
                   <FlatList
+                   horizontal
+                   showsHorizontalScrollIndicator={false}
+                   ItemSeparatorComponent={() => <View className="w-2" />}
                     className="mb-4 mt-3"
                     data={trendingMovies}
                     renderItem={({ item, index }) => (
-                      <Text className="text-white text-sm ">{item.title}</Text>
+                    <TrendingCard movie={item} index={index} />
                     )}
                     keyExtractor={(item) => item.movie_id.toString()}
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={{ paddingBottom: 10 }}
+                
                   />
                 </View>
               )}
