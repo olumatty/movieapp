@@ -41,6 +41,7 @@ const Search = () => {
              updateSearchCount(searchQuery, movies[0])
             
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [movies]);
 
   return (

@@ -18,6 +18,7 @@ export default function Index() {
     error: trendingError,
   } = useFetch(getTrendingMovies)
 
+
   const {
     data: movies,
     loading: moviesLoading,
@@ -52,7 +53,7 @@ export default function Index() {
                     className="mb-4 mt-3"
                     data={trendingMovies}
                     renderItem={({ item, index }) => (
-                    <TrendingCard movie={item} index={index} />
+                    <TrendingCard movie={item} index={index}/>
                     )}
                     keyExtractor={(item) => item.movie_id.toString()}
                 

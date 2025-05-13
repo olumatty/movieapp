@@ -1,8 +1,8 @@
 import { fetchMovieDetails } from '@/services/api'
 import useFetch from '@/services/usefetch'
-import { useLocalSearchParams } from 'expo-router'
+import { router, useLocalSearchParams } from 'expo-router'
 import React from 'react'
-import { Image, ScrollView, Text, View } from 'react-native'
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { icons } from '../../constants/icons'
 
 interface MovieInfoProps {
@@ -33,7 +33,7 @@ const MovieDetails = () => {
 
             <View className='flex-col items-start justify-between mt-5 px-5'>
                 <Text className='text-white font-semibold text-xl'>{movie?.title}</Text>
-                <View className='flex-row items-center'>
+                <View className='flex-row items-center gap-x-2 '>
                 <Text className='text-light-200 text-sm'>{movie?.release_date?.split('-')[0]}</Text>
                 <Text className ='text-light-200 text-sm'>{movie?.runtime} mins</Text>
                 </View>
@@ -45,12 +45,22 @@ const MovieDetails = () => {
             </View>
 
             <MovieInfo label='Overview' value={movie?.overview}/>
-            <MovieInfo label='Genres' value={movie?.genres?.map((g) => g.name).join(', ')}/>
+            <MovieInfo label='Genres' value={movie?.genres?.map((g) => g.name).join('-')|| 'N/A'}/>
 
+            <View className='flex flex-row justify-between w-1/2'>
+                <MovieInfo label='Budget' value={`$${movie?.budget / 1_000_000}million`}/>
+                <MovieInfo label ='Revenue' value = {`$${Math.round(movie?.revenue)/ 1_000_000}`}/>
             </View>
 
-               
+            <MovieInfo label='Production Companies' value ={movie?.production_companies.map((c) => c.name).join('-') ||'N/A'}/>
+            </View>  
         </ScrollView>
+        <TouchableOpacity className='absolute bottom-5 left-0 right-0 mx-5 bg-accent rounded-lg py-3.5 flex flex-row items-center justify-center z-50'
+            onPress={router.back}
+            >
+                <Image source={icons.arrow} className='size-5 mr-1 mt-0.5 rotate-180' tintColor="#fff"/>
+                <Text className='text-white font-semibold text-base'>Go Back</Text>
+            </TouchableOpacity>
       
     </View>
   )
